@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { List } from './components/List';
+import { v4 as uuidv4 } from 'uuid';
 
-function App() {
+import listSvg from './assets/img/list.svg';
+
+const list = [
+  {
+    id: uuidv4(),
+    icon: listSvg,
+    name: 'Все задачи',
+    active: true,
+  },
+];
+
+const list2 = [
+  {
+    id: 1,
+    name: 'Продажи',
+    color: 'line', //#B6E6BD
+  },
+  {
+    id: 2,
+    name: 'Фронтенд',
+    color: 'pink', //#FFBBCC
+  },
+  {
+    id: 3,
+    name: 'Фильмы и сериалы',
+    color: 'blue', //#64C4ED
+  },
+];
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='todo'>
+      <section className='todo-sidebar'>
+        <List list={list} />
+        <List list={list2} />
+      </section>
+      <section className='todo-content'></section>
     </div>
   );
-}
+};
 
 export default App;
