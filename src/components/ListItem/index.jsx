@@ -1,3 +1,5 @@
+import { Badge } from '../Badge';
+
 import style from './index.module.scss';
 
 const ListItem = ({ name, active, icon, color }) => {
@@ -8,7 +10,7 @@ const ListItem = ({ name, active, icon, color }) => {
           <img src={icon} alt={name} />
         </i>
       ) : (
-        <i className={`${style.circlyBadge} ${style[color]}`}></i>
+        <Badge color={color} />
       )}
       <span>{name}</span>
     </li>

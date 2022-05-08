@@ -17,7 +17,7 @@ const list2 = [
   {
     id: 1,
     name: 'Продажи',
-    color: 'line', //#B6E6BD
+    color: 'lime', //#B6E6BD
   },
   {
     id: 2,

@@ -1,12 +1,15 @@
+import { useState } from 'react';
+import classNames from 'classnames';
+import DB from '../../assets/db.json';
+
 import { List } from '../List';
 import plusSvg from '../../assets/img/add.svg';
 
 import style from './index.module.scss';
-import { useState } from 'react';
+import { Badge } from '../Badge';
 
 const ButtonAddList = () => {
-  const [visiblePopup, setVisiblePopup] = useState(false);
-
+  const [visiblePopup, setVisiblePopup] = useState(true);
   const list = [
     {
       id: 1,
@@ -23,11 +26,25 @@ const ButtonAddList = () => {
       >
         <List list={list} />
       </div>
-      {visiblePopup ? <div className={style.addListPopup}>123</div> : null}
+      {visiblePopup ? (
+        <div className={style.addListPopup}>
+          <input
+            type='text'
+            placeholder='Название списка'
+            className={classNames(style.popupInput, 'field')}
+          />
+          <div className={style.popupBadge}>
+            {DB.colors.map((item) => {
+              return <Badge key={item.id} color={item.name} />;
+            })}
+          </div>
+          <button className={classNames(style.popupButton, 'button')}>
+            Добавить
+          </button>
+        </div>
+      ) : null}
     </>
   );
 };
 
 export { ButtonAddList };
-
-rfc
