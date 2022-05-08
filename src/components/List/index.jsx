@@ -1,4 +1,4 @@
-// import classNames from 'classnames';
+import ListItem from '../ListItem';
 import style from './index.module.scss';
 
 const List = (props) => {
@@ -6,18 +6,7 @@ const List = (props) => {
   return (
     <ul className={style.todoList}>
       {list.map((item) => {
-        return (
-          <li key={item.id} className={item.active ? style.active : null}>
-            {item.icon ? (
-              <i>
-                <img src={item.icon} alt='List Icon' />
-              </i>
-            ) : (
-              <i className={`${style.circlyIcon} ${style[item.color]}`}></i>
-            )}
-            <span>{item.name}</span>
-          </li>
-        );
+        return <ListItem key={item.id} {...item} />;
       })}
     </ul>
   );

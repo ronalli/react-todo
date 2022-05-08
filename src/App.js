@@ -2,6 +2,7 @@ import { List } from './components/List';
 import { v4 as uuidv4 } from 'uuid';
 
 import listSvg from './assets/img/list.svg';
+import { ButtonAddList } from './components/ButtonAddList';
 
 const list = [
   {
@@ -36,6 +37,7 @@ const App = () => {
       <section className='todo-sidebar'>
         <List list={list} />
         <List list={list2} />
+        <ButtonAddList />
       </section>
       <section className='todo-content'></section>
     </div>
