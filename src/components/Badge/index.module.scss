@@ -1,8 +1,7 @@
-.circlyBadge {
+.badge {
 	width: 10px;
 	height: 10px;
-	border-radius: 30px;
-	margin-right: 9px;
+	border-radius:50%;
 }
 .lime {
 	background-color: #B6E6BD;
@@ -36,7 +35,11 @@
 	background-color: #FF6464;
 }
 
-i {
-	display: inline-flex;
-	margin-right: 7px;
+
+.active {
+	border: 2px solid #525252;
 }
+// i {
+// 	display: inline-flex;
+// 	margin-right: 7px;
+// }

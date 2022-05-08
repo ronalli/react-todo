@@ -10,6 +10,7 @@ import { Badge } from '../Badge';
 
 const ButtonAddList = () => {
   const [visiblePopup, setVisiblePopup] = useState(true);
+  const [selectedElement, setSelectedElement] = useState(DB.colors[0].id);
   const list = [
     {
       id: 1,
@@ -35,7 +36,14 @@ const ButtonAddList = () => {
           />
           <div className={style.popupBadge}>
             {DB.colors.map((item) => {
-              return <Badge key={item.id} color={item.name} />;
+              return (
+                <Badge
+                  key={item.id}
+                  color={item.name}
+                  onClick={() => setSelectedElement(item.id)}
+                  active={selectedElement === item.id}
+                />
+              );
             })}
           </div>
           <button className={classNames(style.popupButton, 'button')}>
