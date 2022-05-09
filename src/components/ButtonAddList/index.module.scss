@@ -1,6 +1,10 @@
 .buttonAddList {
 	opacity: 0.4;
 	font-weight: 500;
+	li:hover {
+		background-color: transparent;
+		box-shadow: none;
+	}
 	i {
 		width: 13px;
 		height: 13px;
@@ -31,6 +35,19 @@
 	.popupButton {
 		width: 100%;
 	}
+
+	.closeButton {
+		position: absolute;
+		top: -8px;
+		right: -8px;
+		cursor: pointer;
+		opacity: 0.6;
+		transition: opacity 0.3s ease-in-out;
+		&:hover {
+			opacity: 0.9;
+		}
+	}
+
 	.popupBadge {
 		display: flex;
 		justify-content: space-between;

@@ -4,12 +4,13 @@ import DB from '../../assets/db.json';
 
 import { List } from '../List';
 import plusSvg from '../../assets/img/add.svg';
+import closeSvg from '../../assets/img/close.svg';
 
 import style from './index.module.scss';
 import { Badge } from '../Badge';
 
 const ButtonAddList = () => {
-  const [visiblePopup, setVisiblePopup] = useState(true);
+  const [visiblePopup, setVisiblePopup] = useState(false);
   const [selectedElement, setSelectedElement] = useState(DB.colors[0].id);
   const list = [
     {
@@ -23,12 +24,18 @@ const ButtonAddList = () => {
     <>
       <div
         className={style.buttonAddList}
-        onClick={() => setVisiblePopup(!visiblePopup)}
+        onClick={() => setVisiblePopup(true)}
       >
-        <List list={list} />
+        <List list={list}/>
       </div>
       {visiblePopup ? (
         <div className={style.addListPopup}>
+          <i
+            className={style.closeButton}
+            onClick={() => setVisiblePopup(false)}
+          >
+            <img src={closeSvg} alt='Close Button' />
+          </i>
           <input
             type='text'
             placeholder='Название списка'
