@@ -9,9 +9,12 @@ import closeSvg from '../../assets/img/close.svg';
 import style from './index.module.scss';
 import { Badge } from '../Badge';
 
-const ButtonAddList = () => {
+const defaultColor = DB.colors[0].id;
+
+const ButtonAddList = ({ addItemList }) => {
+  const [valueInput, setValueInput] = useState('');
   const [visiblePopup, setVisiblePopup] = useState(false);
-  const [selectedElement, setSelectedElement] = useState(DB.colors[0].id);
+  const [selectedElement, setSelectedElement] = useState(defaultColor);
   const list = [
     {
       id: 1,
@@ -20,23 +23,28 @@ const ButtonAddList = () => {
     },
   ];
 
+  const onClosePopup = () => {
+    setSelectedElement(defaultColor);
+    setValueInput('');
+    setVisiblePopup(false);
+  };
+
   return (
     <>
       <div
         className={style.buttonAddList}
         onClick={() => setVisiblePopup(true)}
       >
-        <List list={list}/>
+        <List list={list} />
       </div>
       {visiblePopup ? (
         <div className={style.addListPopup}>
-          <i
-            className={style.closeButton}
-            onClick={() => setVisiblePopup(false)}
-          >
+          <i className={style.closeButton} onClick={onClosePopup}>
             <img src={closeSvg} alt='Close Button' />
           </i>
           <input
+            value={valueInput}
+            onChange={(e) => setValueInput(e.target.value)}
             type='text'
             placeholder='Название списка'
             className={classNames(style.popupInput, 'field')}
@@ -53,7 +61,13 @@ const ButtonAddList = () => {
               );
             })}
           </div>
-          <button className={classNames(style.popupButton, 'button')}>
+          <button
+            className={classNames(style.popupButton, 'button')}
+            onClick={() => {
+              addItemList({ name: valueInput, colorId: selectedElement });
+              onClosePopup();
+            }}
+          >
             Добавить
           </button>
         </div>

@@ -22,19 +22,37 @@ const App = () => {
     setLists(formatLists(DB.lists));
   }, []);
 
+  const findColor = (colorId) => {
+    return DB.colors.find((color) => color.id === colorId).name;
+  };
+
+  const removeItemList = (id) => {
+    let newList = lists.filter((el) => el.id !== id);
+    setLists(newList);
+  };
+
   const formatLists = (arr) => {
     return arr.map((item) => ({
       ...item,
-      color: DB.colors.find((color) => color.id === item.colorId).name,
+      color: findColor(item.colorId),
     }));
+  };
+
+  const addItemList = ({ name, colorId }) => {
+    const newItemLists = {
+      id: lists.length + 1,
+      name,
+      color: findColor(colorId),
+    };
+    setLists(() => [...lists, newItemLists]);
   };
 
   return (
     <div className='todo'>
       <section className='todo-sidebar'>
         <List list={list} />
-        <List list={lists} />
-        <ButtonAddList />
+        <List list={lists} isRemovable removeItemList={removeItemList} />
+        <ButtonAddList addItemList={addItemList} />
       </section>
       <section className='todo-content'></section>
     </div>

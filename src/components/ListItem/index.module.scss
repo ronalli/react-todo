@@ -12,4 +12,17 @@
 		display: inline-flex;
 		margin-right: 9px;
 	}
+	span {
+		flex: 1
+	}
+
+	.removeBtn {
+		opacity: 0
+	}
+
+	&:hover {
+		.removeBtn {
+			opacity: 0.2;
+		}
+	}
 }
