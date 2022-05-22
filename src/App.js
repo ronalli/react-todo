@@ -32,8 +32,7 @@ const App = () => {
   }, []);
 
   const removeItemList = (id) => {
-    let newList = lists.filter((el) => el.id !== id);
-    setLists(newList);
+    axios.delete(`http://localhost:3001/lists/${id}`);
   };
 
   const addItemList = ({ name, colorId }) => {
@@ -48,7 +47,7 @@ const App = () => {
         <ButtonAddList addItemList={addItemList} colors={colors} />
       </section>
       <section className='todo-content'>
-        <Tasks />
+        {lists.length ? <Tasks list={lists[1]} /> : <p>Загрузка..</p>}
       </section>
     </div>
   );

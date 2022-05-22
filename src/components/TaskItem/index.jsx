@@ -1,13 +1,13 @@
 import style from './index.module.scss';
 
-const TaskItem = ({ titleTask }) => {
+const TaskItem = ({ text, id }) => {
   // console.log(props);
   return (
     <div className={style.taskRow}>
       <div className={style.checkbox}>
         <div className={style.checkboxItem}>
-          <input id='check' type='checkbox' />
-          <label htmlFor='check'>
+          <input id={`check-${id}`} type='checkbox' />
+          <label htmlFor={`check-${id}`}>
             <svg
               width='11'
               height='8'
@@ -26,7 +26,7 @@ const TaskItem = ({ titleTask }) => {
           </label>
         </div>
       </div>
-      <p>{titleTask}</p>
+      <p>{text}</p>
     </div>
   );
 };

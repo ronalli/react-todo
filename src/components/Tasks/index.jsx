@@ -1,20 +1,14 @@
+import { isElement } from 'react-dom/test-utils';
 import { TaskItem } from '../TaskItem';
 
 import style from './index.module.scss';
 
-const a = [
-  'ReactJS Hooks (useState, useReducer, useEffect и т.д.)',
-  // 'Изучить паттерны проектирования',
-  // 'Изучить JavaScript',
-  // 'Redux (redux-observable, redux-saga)',
-];
-
-const Tasks = (props) => {
+const Tasks = ({ list }) => {
   return (
     <div className={style.todoTasks}>
-      <h2 className={style.todoTitle}>Фронтенд</h2>
-      {a.map((el, index) => {
-        return <TaskItem titleTask={el} key={index} />;
+      <h2 className={style.todoTitle}>{list.name}</h2>
+      {list.tasks.map((el) => {
+        return <TaskItem key={el.id} {...el} />;
       })}
     </div>
   );
