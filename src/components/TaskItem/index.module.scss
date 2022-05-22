@@ -1,0 +1,56 @@
+.taskRow {
+	display: flex;
+	align-items: center;
+	margin-top: 30px;
+	p {
+		margin-left: 15px;
+		font-size: 16px;
+	}
+}
+
+.checkbox {
+	input {
+		display: none;
+	}
+
+	svg {
+		opacity: 0;
+		transition: opacity 0.25s ease-in-out;
+	}
+
+	&:hover {
+		label {
+			background-color: #E1E1E1;
+			border: 2px solid #E1E1E1;
+			svg {
+				opacity: 1;
+				path {
+					stroke: #B3B3B3
+				}
+			}
+		}
+	}
+
+	label {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		width: 20px;
+		height: 20px;
+		border: 2px solid #E8E8E8;
+		border-radius: 50%;
+		transition: all 0.25s ease-in-out;
+	}
+
+	input:checked + label {
+		background-color: #4DD599;
+		border: #4DD599;
+		svg {
+			opacity: 1;
+			path {
+				stroke: #fff;
+			}
+		}
+	}
+}

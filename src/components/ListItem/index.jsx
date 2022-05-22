@@ -23,7 +23,7 @@ const ListItem = ({
           <img src={icon} alt={name} />
         </i>
       ) : (
-        <Badge color={color} />
+        <Badge color={color.name} />
       )}
       <span>{name}</span>
       {isRemovable && (

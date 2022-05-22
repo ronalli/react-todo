@@ -1,50 +1,43 @@
-import { List } from './components/List';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 import { ButtonAddList } from './components/ButtonAddList';
+import { List } from './components/List';
+import { Tasks } from './components/Tasks';
+
 import DB from './assets/db.json';
 
 import listSvg from './assets/img/list.svg';
-import { useEffect, useState } from 'react';
 
 const list = [
   {
     id: uuidv4(),
     icon: listSvg,
     name: 'Все задачи',
-    // active: true,
   },
 ];
 
 const App = () => {
   const [lists, setLists] = useState([]);
+  const [colors, setColors] = useState(null);
   useEffect(() => {
-    setLists(formatLists(DB.lists));
-  }, []);
+    axios
+      .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
+      .then(({ data }) => setLists(data));
 
-  const findColor = (colorId) => {
-    return DB.colors.find((color) => color.id === colorId).name;
-  };
+    axios
+      .get('http://localhost:3001/colors')
+      .then(({ data }) => setColors(data));
+  }, []);
 
   const removeItemList = (id) => {
     let newList = lists.filter((el) => el.id !== id);
     setLists(newList);
   };
 
-  const formatLists = (arr) => {
-    return arr.map((item) => ({
-      ...item,
-      color: findColor(item.colorId),
-    }));
-  };
-
   const addItemList = ({ name, colorId }) => {
-    const newItemLists = {
-      id: lists.length + 1,
-      name,
-      color: findColor(colorId),
-    };
-    setLists(() => [...lists, newItemLists]);
+    axios.post('http://localhost:3001/lists', { name, colorId });
   };
 
   return (
@@ -52,9 +45,11 @@ const App = () => {
       <section className='todo-sidebar'>
         <List list={list} />
         <List list={lists} isRemovable removeItemList={removeItemList} />
-        <ButtonAddList addItemList={addItemList} />
+        <ButtonAddList addItemList={addItemList} colors={colors} />
       </section>
-      <section className='todo-content'></section>
+      <section className='todo-content'>
+        <Tasks />
+      </section>
     </div>
   );
 };

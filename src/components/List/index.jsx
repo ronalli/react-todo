@@ -5,7 +5,6 @@ const List = (props) => {
   const { list, isRemovable, removeItemList } = props;
   return (
     <ul className={style.todoList}>
-      {console.log(list)}
       {list.length ? (
         list.map((item) => {
           return (

@@ -16,13 +16,18 @@
 		flex: 1
 	}
 
-	.removeBtn {
-		opacity: 0
-	}
-
 	&:hover {
 		.removeBtn {
 			opacity: 0.2;
 		}
 	}
+
+	.removeBtn {
+		opacity: 0;
+		&:hover {
+			opacity: 0.8;
+		}
+	}
+
+
 }

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import DB from '../../assets/db.json';
+// import DB from '../../assets/db.json';
 
 import { List } from '../List';
 import plusSvg from '../../assets/img/add.svg';
@@ -9,12 +9,19 @@ import closeSvg from '../../assets/img/close.svg';
 import style from './index.module.scss';
 import { Badge } from '../Badge';
 
-const defaultColor = DB.colors[0].id;
+// const defaultColor = DB.colors[0].id;
 
-const ButtonAddList = ({ addItemList }) => {
+const ButtonAddList = ({ addItemList, colors }) => {
   const [valueInput, setValueInput] = useState('');
   const [visiblePopup, setVisiblePopup] = useState(false);
-  const [selectedElement, setSelectedElement] = useState(defaultColor);
+  const [selectedElement, setSelectedElement] = useState(3);
+
+  useEffect(() => {
+    if (Array.isArray(colors)) {
+      setSelectedElement(colors[0].id);
+    }
+  }, [colors]);
+
   const list = [
     {
       id: 1,
@@ -23,8 +30,12 @@ const ButtonAddList = ({ addItemList }) => {
     },
   ];
 
+	const addList = () => {
+		addItemList({ name: valueInput, colorId: selectedElement });
+	}
+
   const onClosePopup = () => {
-    setSelectedElement(defaultColor);
+    setSelectedElement(colors[0].id);
     setValueInput('');
     setVisiblePopup(false);
   };
@@ -50,7 +61,7 @@ const ButtonAddList = ({ addItemList }) => {
             className={classNames(style.popupInput, 'field')}
           />
           <div className={style.popupBadge}>
-            {DB.colors.map((item) => {
+            {colors.map((item) => {
               return (
                 <Badge
                   key={item.id}
@@ -64,7 +75,7 @@ const ButtonAddList = ({ addItemList }) => {
           <button
             className={classNames(style.popupButton, 'button')}
             onClick={() => {
-              addItemList({ name: valueInput, colorId: selectedElement });
+              addList()
               onClosePopup();
             }}
           >
