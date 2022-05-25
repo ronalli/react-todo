@@ -11,6 +11,7 @@ const ListItem = ({
   icon,
   color,
   id,
+  tasks,
   isRemovable,
   removeItemList,
 }) => {
@@ -26,6 +27,7 @@ const ListItem = ({
         <Badge color={color.name} />
       )}
       <span>{name}</span>
+      {tasks ? tasks.length > 0 ? <p>{tasks.length}</p> : null : null}
       {isRemovable && (
         <img
           className={style.removeBtn}

@@ -1,7 +1,6 @@
 import style from './index.module.scss';
 
 const TaskItem = ({ text, id }) => {
-  // console.log(props);
   return (
     <div className={style.taskRow}>
       <div className={style.checkbox}>

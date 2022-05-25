@@ -21,10 +21,14 @@ const list = [
 const App = () => {
   const [lists, setLists] = useState([]);
   const [colors, setColors] = useState(null);
+  const [name, setName] = useState(null);
   useEffect(() => {
     axios
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
-      .then(({ data }) => setLists(data));
+      .then(({ data }) => {
+        setLists(data);
+        setName(data[0].name);
+      });
 
     axios
       .get('http://localhost:3001/colors')
@@ -47,7 +51,11 @@ const App = () => {
         <ButtonAddList addItemList={addItemList} colors={colors} />
       </section>
       <section className='todo-content'>
-        {lists.length ? <Tasks list={lists[1]} /> : <p>Загрузка..</p>}
+        {lists.length ? (
+          <Tasks list={lists[1]} name={name} />
+        ) : (
+          <p>Загрузка..</p>
+        )}
       </section>
     </div>
   );
