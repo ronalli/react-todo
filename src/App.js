@@ -21,13 +21,14 @@ const list = [
 const App = () => {
   const [lists, setLists] = useState([]);
   const [colors, setColors] = useState(null);
-  const [name, setName] = useState(null);
+  const [currentTask, setCurrentTask] = useState(null);
+
   useEffect(() => {
     axios
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
         setLists(data);
-        setName(data[0].name);
+        setCurrentTask(data[0]);
       });
 
     axios
@@ -43,16 +44,25 @@ const App = () => {
     axios.post('http://localhost:3001/lists', { name, colorId });
   };
 
+  const onClickItem = (item) => {
+    setCurrentTask(...lists.filter((el) => el.name === item));
+  };
+
   return (
     <div className='todo'>
       <section className='todo-sidebar'>
         <List list={list} />
-        <List list={lists} isRemovable removeItemList={removeItemList} />
+        <List
+          list={lists}
+          isRemovable
+          removeItemList={removeItemList}
+          onClickItem={onClickItem}
+        />
         <ButtonAddList addItemList={addItemList} colors={colors} />
       </section>
       <section className='todo-content'>
         {lists.length ? (
-          <Tasks list={lists[1]} name={name} />
+          <Tasks currentTask={currentTask} />
         ) : (
           <p>Загрузка..</p>
         )}

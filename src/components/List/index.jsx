@@ -2,7 +2,7 @@ import ListItem from '../ListItem';
 import style from './index.module.scss';
 
 const List = (props) => {
-  const { list, isRemovable, removeItemList } = props;
+  const { list, isRemovable, removeItemList, onClickItem } = props;
   return (
     <ul className={style.todoList}>
       {list.length ? (
@@ -13,6 +13,7 @@ const List = (props) => {
               {...item}
               isRemovable={isRemovable ? isRemovable : null}
               removeItemList={removeItemList ? removeItemList : null}
+              onClickItem={onClickItem}
             />
           );
         })

@@ -14,10 +14,12 @@ const ListItem = ({
   tasks,
   isRemovable,
   removeItemList,
+  onClickItem,
 }) => {
   return (
     <li
       className={classNames(active ? style.active : null, style.todoListItem)}
+      onClick={onClickItem ? () => onClickItem(name) : null}
     >
       {icon ? (
         <i>
