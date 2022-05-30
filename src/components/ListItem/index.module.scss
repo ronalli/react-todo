@@ -3,7 +3,7 @@
 	display: grid;
 	grid-template-columns: 20px auto 15px 25px;
 	align-items: center;
-	// align-items: center;
+	justify-content: center;
 	cursor: pointer;
 	padding: 10px 12px;
 	&.active {

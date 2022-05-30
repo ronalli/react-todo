@@ -15,10 +15,14 @@ const ListItem = ({
   isRemovable,
   removeItemList,
   onClickItem,
+  currentTask,
 }) => {
   return (
     <li
-      className={classNames(active ? style.active : null, style.todoListItem)}
+      className={classNames({
+        [style.active]: currentTask && currentTask.id === id,
+        [style.todoListItem]: true,
+      })}
       onClick={onClickItem ? () => onClickItem(name) : null}
     >
       {icon ? (

@@ -1,4 +1,3 @@
-import { isElement } from 'react-dom/test-utils';
 import { TaskItem } from '../TaskItem';
 
 import style from './index.module.scss';
@@ -13,7 +12,7 @@ const Tasks = ({ currentTask }) => {
           return <TaskItem key={el.id} {...el} />;
         })
       ) : (
-        <div className={style.notTodo}>Список пока пуст</div>
+        <h2 className={style.notTodo}>Задачи отсутствуют</h2>
       )}
     </div>
   );

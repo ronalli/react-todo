@@ -5,9 +5,6 @@ import axios from 'axios';
 import { ButtonAddList } from './components/ButtonAddList';
 import { List } from './components/List';
 import { Tasks } from './components/Tasks';
-
-import DB from './assets/db.json';
-
 import listSvg from './assets/img/list.svg';
 
 const list = [
@@ -28,7 +25,7 @@ const App = () => {
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
         setLists(data);
-        setCurrentTask(data[0]);
+        // setCurrentTask(data[0]);
       });
 
     axios
@@ -44,8 +41,8 @@ const App = () => {
     axios.post('http://localhost:3001/lists', { name, colorId });
   };
 
-  const onClickItem = (item) => {
-    setCurrentTask(...lists.filter((el) => el.name === item));
+  const onClickItem = (name) => {
+    setCurrentTask(...lists.filter((el) => el.name === name));
   };
 
   return (
@@ -57,14 +54,15 @@ const App = () => {
           isRemovable
           removeItemList={removeItemList}
           onClickItem={onClickItem}
+          currentTask={currentTask}
         />
         <ButtonAddList addItemList={addItemList} colors={colors} />
       </section>
       <section className='todo-content'>
-        {lists.length ? (
+        {lists.length && currentTask ? (
           <Tasks currentTask={currentTask} />
         ) : (
-          <p>Загрузка..</p>
+          <h2 className='downloading-tasks'>Загрузка...</h2>
         )}
       </section>
     </div>
