@@ -19,6 +19,7 @@ const App = () => {
   const [lists, setLists] = useState([]);
   const [colors, setColors] = useState(null);
   const [currentTask, setCurrentTask] = useState(null);
+  const [updateList, setUpdateList] = useState(false);
 
   useEffect(() => {
     axios
@@ -30,19 +31,29 @@ const App = () => {
     axios
       .get('http://localhost:3001/colors')
       .then(({ data }) => setColors(data));
-  }, [lists, colors]);
+  }, []);
 
   useEffect(() => {}, [currentTask]);
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
+      .then(({ data }) => {
+        setLists(data);
+      });
+    setUpdateList(false);
+  }, [updateList]);
 
   const removeItemList = (id) => {
     axios.delete(`http://localhost:3001/lists/${id}`);
-    if (currentTask.id === id) {
+    setUpdateList(true);
+    if (currentTask?.id === id) {
       setCurrentTask(null);
     }
   };
 
   const addItemList = ({ name, colorId }) => {
     axios.post('http://localhost:3001/lists', { name, colorId });
+    setUpdateList(true);
   };
 
   const onClickItem = (name) => {
