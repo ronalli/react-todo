@@ -25,16 +25,20 @@ const App = () => {
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
         setLists(data);
-        // setCurrentTask(data[0]);
       });
 
     axios
       .get('http://localhost:3001/colors')
       .then(({ data }) => setColors(data));
-  }, []);
+  }, [lists, colors]);
+
+  useEffect(() => {}, [currentTask]);
 
   const removeItemList = (id) => {
     axios.delete(`http://localhost:3001/lists/${id}`);
+    if (currentTask.id === id) {
+      setCurrentTask(null);
+    }
   };
 
   const addItemList = ({ name, colorId }) => {

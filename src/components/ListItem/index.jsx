@@ -39,7 +39,10 @@ const ListItem = ({
           className={style.removeBtn}
           src={removeSvg}
           alt='Remove icon'
-          onClick={() => removeItemList(id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            removeItemList(id);
+          }}
         />
       )}
     </li>

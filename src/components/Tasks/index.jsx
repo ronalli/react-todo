@@ -3,7 +3,6 @@ import { TaskItem } from '../TaskItem';
 import style from './index.module.scss';
 
 const Tasks = ({ currentTask }) => {
-  console.log(currentTask);
   return (
     <div className={style.todoTasks}>
       <h2 className={style.todoTitle}>{currentTask.name}</h2>
