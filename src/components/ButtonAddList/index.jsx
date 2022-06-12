@@ -30,9 +30,9 @@ const ButtonAddList = ({ addItemList, colors }) => {
     },
   ];
 
-	const addList = () => {
-		addItemList({ name: valueInput, colorId: selectedElement });
-	}
+  const addList = () => {
+    addItemList({ name: valueInput, colorId: selectedElement });
+  };
 
   const onClosePopup = () => {
     setSelectedElement(colors[0].id);
@@ -75,7 +75,7 @@ const ButtonAddList = ({ addItemList, colors }) => {
           <button
             className={classNames(style.popupButton, 'button')}
             onClick={() => {
-              addList()
+              addList();
               onClosePopup();
             }}
           >

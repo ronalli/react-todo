@@ -1,3 +1,4 @@
+import { AddTasks } from '../AddTasks';
 import { TaskItem } from '../TaskItem';
 
 import style from './index.module.scss';
@@ -13,6 +14,7 @@ const Tasks = ({ currentTask }) => {
       ) : (
         <h2 className={style.notTodo}>Задачи отсутствуют</h2>
       )}
+      <AddTasks />
     </div>
   );
 };
