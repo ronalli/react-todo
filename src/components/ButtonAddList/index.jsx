@@ -31,7 +31,11 @@ const ButtonAddList = ({ addItemList, colors }) => {
   ];
 
   const addList = () => {
-    addItemList({ name: valueInput, colorId: selectedElement });
+    let obj = {
+      name: valueInput,
+      colorId: selectedElement,
+    };
+    addItemList(obj);
   };
 
   const onClosePopup = () => {

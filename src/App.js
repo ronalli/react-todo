@@ -33,13 +33,12 @@ const App = () => {
       .then(({ data }) => setColors(data));
   }, []);
 
-  useEffect(() => {}, [currentTask]);
+  useEffect(() => {}, [currentTask, setCurrentTask]);
   useEffect(() => {
     axios
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
         setLists(data);
-        console.log(data);
       });
     setUpdateList(false);
   }, [updateList]);
@@ -52,18 +51,30 @@ const App = () => {
     }
   };
 
-  const addItemList = ({ name, colorId }) => {
-    axios.post('http://localhost:3001/lists', { name, colorId });
-    setUpdateList(true);
+  const addItemList = (obj) => {
+    axios
+      .post('http://localhost:3001/lists', obj)
+      .then(() => {
+        setUpdateList(true);
+      })
+      .catch(() => console.warn('Ошибка добавления списка'));
   };
 
   const onClickItem = (name) => {
     setCurrentTask(...lists.filter((el) => el.name === name));
   };
 
-  const addTask = (listId, text) => {
-    axios.post('http://localhost:3001/tasks', { listId, text });
-    setUpdateList(true);
+  const addTask = (listId, obj) => {
+    axios
+      .post('http://localhost:3001/tasks', obj)
+      .then(({ data }) => {
+        let newLists = lists.map((item) => {
+          if (item.id === listId) item.tasks = [...item.tasks, data];
+          return item;
+        });
+        setLists(newLists);
+      })
+      .catch(() => console.warn('Ошибка при добавлении задачи'));
   };
 
   return (
