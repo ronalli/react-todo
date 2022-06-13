@@ -4,19 +4,32 @@ import style from './index.module.scss';
 import addSvg from '../../assets/img/add.svg';
 import { useState } from 'react';
 
-const AddTasks = () => {
+const AddTasks = ({ currentTask, addTask }) => {
   const [showForm, setShowForm] = useState(false);
+  const [newTask, setNewTask] = useState('');
+
+  const addTaskForm = () => {
+    let id = currentTask.id;
+    let value = newTask;
+    addTask(id, value);
+    setShowForm(!showForm);
+  };
 
   return (
     <div className={style.addFormTasks}>
       {showForm ? (
         <div className={style.addFormTasksBlock}>
           <input
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
             type='text'
             placeholder='Название задачи'
             className={classNames(style.addInput, 'field')}
           />
-          <button className={classNames(style.addButton, 'button')}>
+          <button
+            className={classNames(style.addButton, 'button')}
+            onClick={addTaskForm}
+          >
             Добавить задачу
           </button>
           <button

@@ -39,6 +39,7 @@ const App = () => {
       .get('http://localhost:3001/lists?_expand=color&_embed=tasks')
       .then(({ data }) => {
         setLists(data);
+        console.log(data);
       });
     setUpdateList(false);
   }, [updateList]);
@@ -60,6 +61,11 @@ const App = () => {
     setCurrentTask(...lists.filter((el) => el.name === name));
   };
 
+  const addTask = (listId, text) => {
+    axios.post('http://localhost:3001/tasks', { listId, text });
+    setUpdateList(true);
+  };
+
   return (
     <div className='todo'>
       <section className='todo-sidebar'>
@@ -75,7 +81,7 @@ const App = () => {
       </section>
       <section className='todo-content'>
         {lists.length && currentTask ? (
-          <Tasks currentTask={currentTask} />
+          <Tasks currentTask={currentTask} addTask={addTask} />
         ) : (
           <h2 className='downloading-tasks'>Загрузка...</h2>
         )}

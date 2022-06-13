@@ -3,7 +3,7 @@ import { TaskItem } from '../TaskItem';
 
 import style from './index.module.scss';
 
-const Tasks = ({ currentTask }) => {
+const Tasks = ({ currentTask, addTask }) => {
   return (
     <div className={style.todoTasks}>
       <h2 className={style.todoTitle}>{currentTask.name}</h2>
@@ -14,7 +14,7 @@ const Tasks = ({ currentTask }) => {
       ) : (
         <h2 className={style.notTodo}>Задачи отсутствуют</h2>
       )}
-      <AddTasks />
+      <AddTasks currentTask={currentTask} addTask={addTask} />
     </div>
   );
 };
