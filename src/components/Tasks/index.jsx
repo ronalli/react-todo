@@ -3,18 +3,20 @@ import { TaskItem } from '../TaskItem';
 
 import style from './index.module.scss';
 
-const Tasks = ({ currentTask, addTask }) => {
+const Tasks = ({ list, addTask, withoutEmprty }) => {
   return (
     <div className={style.todoTasks}>
-      <h2 className={style.todoTitle}>{currentTask.name}</h2>
-      {currentTask.tasks.length > 0 ? (
-        currentTask.tasks.map((el) => {
+      <h2 style={{ color: list.color.hex }} className={style.todoTitle}>
+        {list.name}
+      </h2>
+      {list.tasks.length > 0 ? (
+        list.tasks.map((el) => {
           return <TaskItem key={el.id} {...el} />;
         })
-      ) : (
+      ) : withoutEmprty ? (
         <h2 className={style.notTodo}>Задачи отсутствуют</h2>
-      )}
-      <AddTasks currentTask={currentTask} addTask={addTask} />
+      ) : null}
+      <AddTasks list={list} addTask={addTask} />
     </div>
   );
 };

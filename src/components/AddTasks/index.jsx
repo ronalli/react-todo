@@ -1,11 +1,10 @@
-import axios from 'axios';
+import { useState } from 'react';
 import classNames from 'classnames';
 
 import style from './index.module.scss';
 import addSvg from '../../assets/img/add.svg';
-import { useState } from 'react';
 
-const AddTasks = ({ currentTask, addTask }) => {
+const AddTasks = ({ list, addTask }) => {
   const [showForm, setShowForm] = useState(false);
   const [newValueTask, setNewValueTask] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -13,11 +12,11 @@ const AddTasks = ({ currentTask, addTask }) => {
   const addTaskForm = () => {
     setIsLoading(true);
     const newTask = {
-      listId: currentTask.id,
+      listId: list.id,
       text: newValueTask,
       completed: false,
     };
-    addTask(currentTask.id, newTask);
+    addTask(list.id, newTask);
     setTimeout(() => {
       setIsLoading(false);
       clearForm();
@@ -39,6 +38,7 @@ const AddTasks = ({ currentTask, addTask }) => {
             type='text'
             placeholder='Название задачи'
             className={classNames(style.addInput, 'field')}
+            autoFocus
           />
           <button
             className={classNames(style.addButton, 'button')}

@@ -17,10 +17,11 @@ const ListItem = ({
   onClickItem,
   currentTask,
 }) => {
+  console.log(currentTask);
   return (
     <li
       className={classNames({
-        [style.active]: currentTask && currentTask.id === id,
+        [style.active]: active ? active : currentTask && currentTask.id === id,
         [style.todoListItem]: true,
       })}
       onClick={onClickItem ? () => onClickItem(name) : null}

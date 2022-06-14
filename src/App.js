@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
 
 import { ButtonAddList } from './components/ButtonAddList';
 import { List } from './components/List';
@@ -80,7 +81,7 @@ const App = () => {
   return (
     <div className='todo'>
       <section className='todo-sidebar'>
-        <List list={list} />
+        <List list={list} active />
         <List
           list={lists}
           isRemovable
@@ -91,11 +92,34 @@ const App = () => {
         <ButtonAddList addItemList={addItemList} colors={colors} />
       </section>
       <section className='todo-content'>
-        {lists.length && currentTask ? (
-          <Tasks currentTask={currentTask} addTask={addTask} />
-        ) : (
-          <h2 className='downloading-tasks'>Загрузка...</h2>
-        )}
+        <Routes>
+          <Route
+            path='/'
+            element={
+              lists &&
+              lists.map((el) => {
+                return (
+                  <Tasks list={el} addTask={addTask} key={el.id} withoutEmpty />
+                );
+              })
+            }
+          />
+          <Route
+            path='/lists/:id'
+            element={
+              lists.length && currentTask ? (
+                <Tasks list={currentTask} addTask={addTask} />
+              ) : (
+                <h2 className='downloading-tasks'>Загрузка...</h2>
+              )
+            }
+          />
+          {/* {lists.length && currentTask ? (
+            <Tasks list={currentTask} addTask={addTask} />
+          ) : (
+            <h2 className='downloading-tasks'>Загрузка...</h2>
+          )} */}
+        </Routes>
       </section>
     </div>
   );
