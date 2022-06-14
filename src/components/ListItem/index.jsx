@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { Badge } from '../Badge';
 
@@ -17,9 +18,9 @@ const ListItem = ({
   onClickItem,
   currentTask,
 }) => {
-  console.log(currentTask);
   return (
-    <li
+    <Link
+      to={!active ? `/lists/${id}` : '/'}
       className={classNames({
         [style.active]: active ? active : currentTask && currentTask.id === id,
         [style.todoListItem]: true,
@@ -46,7 +47,7 @@ const ListItem = ({
           }}
         />
       )}
-    </li>
+    </Link>
   );
 };
 
