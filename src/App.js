@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import { ButtonAddList } from './components/ButtonAddList';
 import { List } from './components/List';
@@ -21,6 +21,7 @@ const App = () => {
   const [colors, setColors] = useState(null);
   const [currentTask, setCurrentTask] = useState(null);
   const [updateList, setUpdateList] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     axios
@@ -44,6 +45,11 @@ const App = () => {
     setUpdateList(false);
   }, [updateList]);
 
+  useEffect(() => {
+    const listId = location.pathname.slice(location.pathname.length - 1);
+    setCurrentTask(...lists.filter((el) => el.id === Number(listId)));
+  }, [lists, location.pathname]);
+
   const removeItemList = (id) => {
     axios.delete(`http://localhost:3001/lists/${id}`);
     setUpdateList(true);
@@ -61,9 +67,9 @@ const App = () => {
       .catch(() => console.warn('Ошибка добавления списка'));
   };
 
-  const onClickItem = (name) => {
-    setCurrentTask(...lists.filter((el) => el.name === name));
-  };
+  // const onClickItem = (name) => {
+  //   setCurrentTask(...lists.filter((el) => el.name === name));
+  // };
 
   const addTask = (listId, obj) => {
     axios
@@ -81,12 +87,13 @@ const App = () => {
   return (
     <div className='todo'>
       <section className='todo-sidebar'>
+        {/* onClickItem={onClickItem} */}
         <List list={list} active />
         <List
           list={lists}
           isRemovable
           removeItemList={removeItemList}
-          onClickItem={onClickItem}
+          // onClickItem={onClickItem}
           currentTask={currentTask}
         />
         <ButtonAddList addItemList={addItemList} colors={colors} />
