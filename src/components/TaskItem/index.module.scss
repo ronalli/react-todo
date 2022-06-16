@@ -2,9 +2,42 @@
 	display: flex;
 	align-items: center;
 	margin-top: 20px;
-	p {
-		margin-left: 15px;
-		font-size: 16px;
+	.itemTask {
+		display: grid;
+		grid-template-columns: 378px 25px 25px;
+    align-items: center;
+    justify-content: center;
+		cursor: pointer;
+		&:hover {
+			svg {
+				opacity: 0.8;
+			}
+		}
+		&Text {
+			margin: 0 15px;
+			font-size: 16px;
+			overflow:hidden;
+			text-overflow: ellipsis;
+			white-space: pre;
+			}
+		span {
+			&:hover {
+				cursor: pointer;
+			}
+		}
+		svg {
+			width: 15px;
+			height: 15px;
+			opacity: 0;
+			path {
+				fill: #B3B3B3;
+			}
+			&:hover {
+				path {
+					fill: darken($color: #B3B3B3, $amount: 25%)
+				}
+			}
+		}
 	}
 }
 

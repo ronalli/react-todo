@@ -81,6 +81,18 @@ const App = () => {
       .catch(() => console.warn('Ошибка при добавлении задачи'));
   };
 
+  const removeTaskItem = (id, listId) => {
+    let newLists = lists.map((list) => {
+      if (list.id === listId) {
+        list.tasks = list.tasks.filter((task) => task.id !== id);
+        console.log('yes');
+      }
+      return list;
+    });
+    setLists(newLists);
+    axios.delete(`http://localhost:3001/tasks/${id}`);
+  };
+
   return (
     <div className='todo'>
       <section className='todo-sidebar'>
@@ -106,7 +118,13 @@ const App = () => {
               lists &&
               lists.map((el) => {
                 return (
-                  <Tasks list={el} addTask={addTask} key={el.id} withoutEmpty />
+                  <Tasks
+                    list={el}
+                    addTask={addTask}
+                    key={el.id}
+                    removeTaskItem={removeTaskItem}
+                    withoutEmpty
+                  />
                 );
               })
             }
@@ -115,7 +133,11 @@ const App = () => {
             path='/lists/:id'
             element={
               lists.length && currentTask ? (
-                <Tasks list={currentTask} addTask={addTask} />
+                <Tasks
+                  list={currentTask}
+                  removeTaskItem={removeTaskItem}
+                  addTask={addTask}
+                />
               ) : (
                 <h2 className='downloading-tasks'>Загрузка...</h2>
               )
