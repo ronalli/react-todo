@@ -6,8 +6,8 @@ const List = (props) => {
     list,
     isRemovable,
     removeItemList,
-    // onClickItem,
     currentTask,
+    onClickItem,
     active,
   } = props;
   return (
@@ -20,8 +20,8 @@ const List = (props) => {
               {...item}
               isRemovable={isRemovable ? isRemovable : null}
               removeItemList={removeItemList ? removeItemList : null}
-              // onClickItem={onClickItem}
               currentTask={currentTask}
+              onClickItem={onClickItem}
               active={active}
             />
           );

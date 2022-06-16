@@ -1,5 +1,5 @@
 // import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { Badge } from '../Badge';
 
@@ -16,27 +16,24 @@ const ListItem = ({
   tasks,
   isRemovable,
   removeItemList,
-  // onClickItem,
+  onClickItem,
   currentTask,
 }) => {
-  const navigator = useNavigate();
+  // const navigator = useNavigate();
   return (
     <li
-      // to={!active ? `/lists/${id}` : '/'}
       className={classNames({
         [style.active]: active ? active : currentTask && currentTask.id === id,
         [style.todoListItem]: true,
       })}
-      // onClick={onClickItem ? () => onClickItem(name) : null}
-      onClick={
-        active
-          ? () => {
-              navigator(`/`);
-            }
-          : () => {
-              navigator(`/lists/${id}`);
-            }
-      }
+      onClick={() => onClickItem(id)}
+      // active
+      //   ? () => {
+      //       navigator(`/`);
+      //     }
+      //   : () => {
+      //       navigator(`/lists/${id}`);
+      //     }
     >
       {icon ? (
         <i>

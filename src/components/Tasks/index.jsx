@@ -16,7 +16,7 @@ const Tasks = ({ list, addTask, withoutEmprty }) => {
       ) : withoutEmprty ? (
         <h2 className={style.notTodo}>Задачи отсутствуют</h2>
       ) : null}
-      <AddTasks list={list} addTask={addTask} />
+      <AddTasks key={list.id} list={list} addTask={addTask} />
     </div>
   );
 };

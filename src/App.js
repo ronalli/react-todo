@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import { ButtonAddList } from './components/ButtonAddList';
 import { List } from './components/List';
@@ -22,6 +22,7 @@ const App = () => {
   const [currentTask, setCurrentTask] = useState(null);
   const [updateList, setUpdateList] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -67,10 +68,6 @@ const App = () => {
       .catch(() => console.warn('Ошибка добавления списка'));
   };
 
-  // const onClickItem = (name) => {
-  //   setCurrentTask(...lists.filter((el) => el.name === name));
-  // };
-
   const addTask = (listId, obj) => {
     axios
       .post('http://localhost:3001/tasks', obj)
@@ -87,14 +84,17 @@ const App = () => {
   return (
     <div className='todo'>
       <section className='todo-sidebar'>
-        {/* onClickItem={onClickItem} */}
-        <List list={list} active />
+        <List
+          list={list}
+          active={location.pathname === '/'}
+          onClickItem={(id) => navigate('/')}
+        />
         <List
           list={lists}
           isRemovable
           removeItemList={removeItemList}
-          // onClickItem={onClickItem}
           currentTask={currentTask}
+          onClickItem={(id) => navigate(`/lists/${id}`)}
         />
         <ButtonAddList addItemList={addItemList} colors={colors} />
       </section>
@@ -121,11 +121,6 @@ const App = () => {
               )
             }
           />
-          {/* {lists.length && currentTask ? (
-            <Tasks list={currentTask} addTask={addTask} />
-          ) : (
-            <h2 className='downloading-tasks'>Загрузка...</h2>
-          )} */}
         </Routes>
       </section>
     </div>
