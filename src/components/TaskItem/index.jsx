@@ -1,6 +1,7 @@
 import style from './index.module.scss';
 
-const TaskItem = ({ text, id, removeTaskItem, listId }) => {
+const TaskItem = ({ text, id, removeTaskItem, listId, updateTaskItem }) => {
+
   return (
     <div className={style.taskRow}>
       <div className={style.checkbox}>
@@ -27,7 +28,7 @@ const TaskItem = ({ text, id, removeTaskItem, listId }) => {
       </div>
       <div className={style.itemTask}>
         <p className={style.itemTaskText}>{text}</p>
-        <span>
+        <span onClick={() => updateTaskItem(id, listId, text)}>
           <svg
             width='15'
             height='15'

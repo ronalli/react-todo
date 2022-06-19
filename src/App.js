@@ -81,11 +81,28 @@ const App = () => {
       .catch(() => console.warn('Ошибка при добавлении задачи'));
   };
 
+  const updateTaskItem = (id, listId, text) => {
+    let newTextTask = prompt('Изменить название задачи?', text);
+    if (newTextTask) {
+      let newLists = lists.map((list) => {
+        if (list.id === listId) {
+          list.tasks.map((task) => {
+            return task.id === id ? (task.text = newTextTask) : task;
+          });
+        }
+        return list;
+      });
+      setLists(newLists);
+    }
+    axios
+      .patch(`http://localhost:3001/tasks/${id}`, { text: newTextTask })
+      .catch(() => console.warn('Ну удалось обновить задачу!'));
+  };
+
   const removeTaskItem = (id, listId) => {
     let newLists = lists.map((list) => {
       if (list.id === listId) {
         list.tasks = list.tasks.filter((task) => task.id !== id);
-        console.log('yes');
       }
       return list;
     });
@@ -135,6 +152,7 @@ const App = () => {
               lists.length && currentTask ? (
                 <Tasks
                   list={currentTask}
+                  updateTaskItem={updateTaskItem}
                   removeTaskItem={removeTaskItem}
                   addTask={addTask}
                 />

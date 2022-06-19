@@ -1,15 +1,24 @@
+import { Link } from 'react-router-dom';
 import { AddTasks } from '../AddTasks';
 import { TaskItem } from '../TaskItem';
 
 import style from './index.module.scss';
 
-const Tasks = ({ list, addTask, withoutEmprty, removeTaskItem }) => {
-  // console.log(list.id);
+const Tasks = ({
+  list,
+  addTask,
+  withoutEmprty,
+  removeTaskItem,
+  updateTaskItem,
+}) => {
   return (
     <div className={style.todoTasks}>
-      <h2 style={{ color: list.color.hex }} className={style.todoTitle}>
-        {list.name}
-      </h2>
+      <Link to={`/lists/${list.id}`}>
+        <h2 style={{ color: list.color.hex }} className={style.todoTitle}>
+          {list.name}
+        </h2>
+      </Link>
+
       {list.tasks.length > 0 ? (
         list.tasks.map((el) => {
           return (
@@ -17,6 +26,7 @@ const Tasks = ({ list, addTask, withoutEmprty, removeTaskItem }) => {
               key={el.id}
               {...el}
               removeTaskItem={removeTaskItem}
+              updateTaskItem={updateTaskItem}
               listId={list.id}
             />
           );
