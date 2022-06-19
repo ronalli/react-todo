@@ -1,12 +1,25 @@
 import style from './index.module.scss';
 
-const TaskItem = ({ text, id, removeTaskItem, listId, updateTaskItem }) => {
-
+const TaskItem = ({
+  text,
+  id,
+  removeTaskItem,
+  listId,
+  updateTaskItem,
+  checkedTask,
+  completed,
+}) => {
+  // console.log(completed);
   return (
     <div className={style.taskRow}>
       <div className={style.checkbox}>
         <div className={style.checkboxItem}>
-          <input id={`check-${id}`} type='checkbox' />
+          <input
+            id={`check-${id}`}
+            type='checkbox'
+            onChange={(e) => checkedTask(id, listId, e.target.checked)}
+            checked={completed}
+          />
           <label htmlFor={`check-${id}`}>
             <svg
               width='11'

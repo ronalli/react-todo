@@ -110,6 +110,21 @@ const App = () => {
     axios.delete(`http://localhost:3001/tasks/${id}`);
   };
 
+  const checkedTask = (id, listId, completed) => {
+    let newLists = lists.map((list) => {
+      if (list.id === listId) {
+        list.tasks.map((task) => {
+          return task.id === id ? (task.completed = completed) : task;
+        });
+      }
+      return list;
+    });
+    setLists(newLists);
+    axios
+      .patch(`http://localhost:3001/tasks/${id}`, { completed: completed })
+      .catch(() => console.warn('Ну удалось обновить задачу!'));
+  };
+
   return (
     <div className='todo'>
       <section className='todo-sidebar'>
@@ -139,6 +154,7 @@ const App = () => {
                     list={el}
                     addTask={addTask}
                     key={el.id}
+                    updateTaskItem={updateTaskItem}
                     removeTaskItem={removeTaskItem}
                     withoutEmpty
                   />
@@ -155,6 +171,7 @@ const App = () => {
                   updateTaskItem={updateTaskItem}
                   removeTaskItem={removeTaskItem}
                   addTask={addTask}
+                  checkedTask={checkedTask}
                 />
               ) : (
                 <h2 className='downloading-tasks'>Загрузка...</h2>

@@ -10,6 +10,7 @@ const Tasks = ({
   withoutEmprty,
   removeTaskItem,
   updateTaskItem,
+  checkedTask,
 }) => {
   return (
     <div className={style.todoTasks}>
@@ -27,6 +28,7 @@ const Tasks = ({
               {...el}
               removeTaskItem={removeTaskItem}
               updateTaskItem={updateTaskItem}
+              checkedTask={checkedTask}
               listId={list.id}
             />
           );
